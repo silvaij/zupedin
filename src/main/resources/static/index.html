@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto|PT+Mono">
+    <link rel="stylesheet" href="/style.css">
+    <title>Zupedin</title>
+</head>
+<body>
+
+<div class="ui">
+    <nav class="navbar app">Skill Board</nav>
+    <nav class="navbar board">ZUPEDIN</nav>
+
+    <div id="app" id="lists" class="lists">
+        <div class="list">
+            <footer>Adicionar</footer>
+        </div>
+    </div>
+</div>
+
+<script id="buckets-list" type="text/x-handlebars-template">
+    {{#each buckets}}
+    <div class="list" data-bucket-id="{{id}}" data-bucket-position="{{position}}">
+        <header>{{name}}</header>
+        <ul>
+            {{#each cards}}
+            <li>{{name}}</li>
+            {{/each}}
+        </ul>
+        <footer>Add a card...</footer>
+    </div>
+    {{/each}}
+    <div class="list">
+        <header>Add bucket ...</header>
+        <footer>&nbsp;</footer>
+    </div>
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
