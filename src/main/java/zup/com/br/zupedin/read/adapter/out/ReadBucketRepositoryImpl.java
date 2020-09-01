@@ -24,16 +24,13 @@ public class ReadBucketRepositoryImpl implements ReadBucketRepository {
     }
 
     public List<BucketDto> findAll() {
-
-        var sql = """
-            SELECT
-                b.external_id bucket_external_id, b.position bucket_position, b.name bucket_name,
-                c.external_id card_external_id, c.position card_position, c.name card_name
-            FROM bucket AS b
-                LEFT JOIN card AS c ON c.bucket_id = b.id
-            ORDER BY b.position ASC, c.position ASC
-            """;
-
+        var sql = " SELECT\r\n" + 
+        		"                b.external_id bucket_external_id, b.position bucket_position, b.name bucket_name,\r\n" + 
+        		"                c.external_id card_external_id, c.position card_position, c.name card_name\r\n" + 
+        		"            FROM bucket AS b\r\n" + 
+        		"                LEFT JOIN card AS c ON c.bucket_id = b.id\r\n" + 
+        		"            ORDER BY b.position ASC, c.position ASC";
+        
         return jdbcTemplate.query(sql, rs -> {
 
             Map<Double, BucketDto> resultMap = new LinkedHashMap<>();

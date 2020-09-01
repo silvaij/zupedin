@@ -30,7 +30,7 @@ public class WriteCardController {
     public ResponseEntity<String> create(@Valid @NotNull @PathVariable(name = "bucketId") String bucketExternalId,
                                          @RequestBody CardDto dto) throws URISyntaxException {
 
-        serviceBus.execute(new CreateCardCommand(bucketExternalId, dto.externalId(), dto.position(), dto.name()));
+     //serviceBus.execute(new CreateCardCommand(bucketExternalId, dto.getExternalId(), dto.getPosition(),dto.getName()));
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

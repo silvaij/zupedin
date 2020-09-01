@@ -2,6 +2,7 @@ package zup.com.br.zupedin.write.adapter.in;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import zup.com.br.zupedin.common.ServiceBus;
+import zup.com.br.zupedin.read.domain.core.BucketDto;
 import zup.com.br.zupedin.write.domain.application.CreateBucketCommand;
 import zup.com.br.zupedin.write.domain.application.MoveBucketCommand;
 import zup.com.br.zupedin.write.domain.application.UpdateBucketCommand;
@@ -29,36 +30,36 @@ public class WriteBucketController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody BucketInput dto) throws URISyntaxException {
+    public ResponseEntity<String> create(@RequestBody BucketDto dto) throws URISyntaxException {
 
-        serviceBus.execute(new CreateBucketCommand(dto.externalId(), dto.position(), dto.name()));
+        //serviceBus.execute(new CreateBucketCommand(dto.getExternalId(), dto.getPosition(), dto.getName()));
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<String> update(@Valid @NotNull @PathVariable(name = "id") String externalId,
-                                         @RequestBody BucketInput dto) {
+                                         @RequestBody BucketDto dto) {
 
-        serviceBus.execute(new UpdateBucketCommand(externalId, dto.name()));
+        serviceBus.execute(new UpdateBucketCommand(externalId, dto.getName()));
 
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(path = "/{id}/move")
     public ResponseEntity<String> move(@Valid @NotNull @PathVariable(name = "id") String externalId,
-                                       @RequestBody BucketInput dto) {
+                                       @RequestBody BucketDto dto) {
 
-        serviceBus.execute(new MoveBucketCommand(externalId, dto.position()));
+        serviceBus.execute(new MoveBucketCommand(externalId, dto.getPosition()));
 
         return ResponseEntity.noContent().build();
     }
 
-    record BucketInput(
+    /*record BucketInput(
             @JsonProperty("id")
             String externalId,
             double position,
             String name) {
         // silence sonarqube
-    }
+    }*/
 }

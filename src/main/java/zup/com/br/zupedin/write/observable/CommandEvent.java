@@ -39,9 +39,9 @@ public class CommandEvent extends InternalEvent {
             if (hasError()) {
                 message.put("message", getException().getMessage());
 
-                if (getException() instanceof DomainException domainException && domainException.hasError()) {
-                    message.put("errors", domainException.getErrors().toString());
-                }
+               // if (getException() instanceof DomainException domainException && domainException.hasError()) {
+                    //message.put("errors", domainException.getErrors().toString());
+                //}
             }
 
             return mapper.writeValueAsString(message);

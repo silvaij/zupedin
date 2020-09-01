@@ -28,11 +28,11 @@ public class WriteBucketRepositoryImpl implements WriteBucketRepository {
     public void create(Bucket bucket) {
 
         try {
-            var sql = """
-                    INSERT INTO bucket(%s, %s, %s)
-                    values (:%s, :%s, :%s)""".formatted(
-                    EXTERNAL_ID_FIELD, POSITION_FIELD, NAME_FIELD,
-                    EXTERNAL_ID_FIELD, POSITION_FIELD, NAME_FIELD);
+            var sql = 
+            "        INSERT INTO bucket(%s, %s, %s),    /n/r"  +
+            "        values (:%s, :%s, :%s).formatted(, /n/r"  +
+            "        EXTERNAL_ID_FIELD, POSITION_FIELD, NAME_FIELD," +
+            "        EXTERNAL_ID_FIELD, POSITION_FIELD, NAME_FIELD)" ;
 
             MapSqlParameterSource parameters = new MapSqlParameterSource()
                     .addValue(EXTERNAL_ID_FIELD, bucket.getExternalId())
@@ -65,15 +65,15 @@ public class WriteBucketRepositoryImpl implements WriteBucketRepository {
     @Override
     public void update(Bucket bucket) {
 
-        var sql = """
-                UPDATE bucket
-                SET
-                    %s = :%s,
-                    %s = :%s
-                WHERE %s = :%s""".formatted(
-                POSITION_FIELD, POSITION_FIELD,
-                NAME_FIELD, NAME_FIELD,
-                EXTERNAL_ID_FIELD, EXTERNAL_ID_FIELD);
+        var sql = "UPDATE bucket\r\n" + 
+        		"                SET\r\n" + 
+        		"                    %s = :%s,\r\n" + 
+        		"                    %s = :%s\r\n" + 
+        		"                WHERE %s = :%s\"\"\".formatted(\r\n" + 
+        		"                POSITION_FIELD, POSITION_FIELD,\r\n" + 
+        		"                NAME_FIELD, NAME_FIELD,\r\n" + 
+        		"                EXTERNAL_ID_FIELD, EXTERNAL_ID_FIELD)";
+                
 
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue(EXTERNAL_ID_FIELD, bucket.getExternalId())
@@ -85,12 +85,12 @@ public class WriteBucketRepositoryImpl implements WriteBucketRepository {
 
     public Optional<Bucket> findByExteranlId(UUID externalId) {
 
-        var sql = """
-                SELECT %s, %s, %s, %s, %s, %s
-                FROM bucket
-                WHERE %s = :%s""".formatted(
-                ID_FIELD, EXTERNAL_ID_FIELD, POSITION_FIELD, NAME_FIELD, CREATED_AT_FIELD, UPDATED_AT_FIELD,
-                EXTERNAL_ID_FIELD, EXTERNAL_ID_FIELD);
+        var sql = " SELECT %s, %s, %s, %s, %s, %s\r\n" + 
+        		"                FROM bucket\r\n" + 
+        		"                WHERE %s = :%s\"\"\".formatted(\r\n" + 
+        		"                ID_FIELD, EXTERNAL_ID_FIELD, POSITION_FIELD, NAME_FIELD, CREATED_AT_FIELD, UPDATED_AT_FIELD,\r\n" + 
+        		"                EXTERNAL_ID_FIELD, EXTERNAL_ID_FIELD)";
+               
 
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue(EXTERNAL_ID_FIELD, externalId);
@@ -114,15 +114,15 @@ public class WriteBucketRepositoryImpl implements WriteBucketRepository {
 
     public List<Bucket> findByExternalIdOrPosition(UUID externalId, double position) {
 
-        var sql = """
-                SELECT %S, %S, %S, %S, %S, %S
-                FROM bucket
-                WHERE
-                    %s = :%s OR
-                    %s = :%s""".formatted(
-                ID_FIELD, EXTERNAL_ID_FIELD, POSITION_FIELD, NAME_FIELD, CREATED_AT_FIELD, UPDATED_AT_FIELD,
-                EXTERNAL_ID_FIELD, EXTERNAL_ID_FIELD,
-                POSITION_FIELD, POSITION_FIELD);
+        var sql = "SELECT %S, %S, %S, %S, %S, %S\r\n" + 
+        		"                FROM bucket\r\n" + 
+        		"                WHERE\r\n" + 
+        		"                    %s = :%s OR\r\n" + 
+        		"                    %s = :%s\"\"\".formatted(\r\n" + 
+        		"                ID_FIELD, EXTERNAL_ID_FIELD, POSITION_FIELD, NAME_FIELD, CREATED_AT_FIELD, UPDATED_AT_FIELD,\r\n" + 
+        		"                EXTERNAL_ID_FIELD, EXTERNAL_ID_FIELD,\r\n" + 
+        		"                POSITION_FIELD, POSITION_FIELD)";
+                
 
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue(EXTERNAL_ID_FIELD, externalId)

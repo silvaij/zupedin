@@ -1,7 +1,7 @@
-package org.seariver.kanbanboard.write.adapter.out;
+package zup.com.br.zupedin.write.adapter.out;
 
-import org.seariver.kanbanboard.write.domain.core.Card;
-import org.seariver.kanbanboard.write.domain.core.WriteCardRepository;
+import zup.com.br.zupedin.write.domain.core.Card;
+import zup.com.br.zupedin.write.domain.core.WriteCardRepository;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,9 +21,9 @@ public class WriteCardRepositoryImpl implements WriteCardRepository {
 
     @Override
     public void create(Card card) {
-        var sql = """
-            INSERT INTO card (bucket_id, external_id, position, name)
-            values (:bucket_id, :externalId, :position, :name)""";
+        var sql = "INSERT INTO card (bucket_id, external_id, position, name)\r\n" + 
+        		"            values (:bucket_id, :externalId, :position, :name)";
+           
 
         MapSqlParameterSource parameters = new MapSqlParameterSource()
             .addValue("bucket_id", card.getBucketId())
@@ -37,10 +37,9 @@ public class WriteCardRepositoryImpl implements WriteCardRepository {
     @Override
     public Optional<Card> findByExternalId(UUID externalId) {
 
-        var sql = """
-            SELECT bucket_id, external_id, position, name, created_at, updated_at
-            FROM card
-            WHERE external_id = :externalId""";
+        var sql = " SELECT bucket_id, external_id, position, name, created_at, updated_at\r\n" + 
+        		"            FROM card\r\n" + 
+        		"            WHERE external_id = :externalId";
 
         MapSqlParameterSource parameters = new MapSqlParameterSource()
             .addValue("externalId", externalId);
